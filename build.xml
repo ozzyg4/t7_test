@@ -98,10 +98,6 @@
 
   app.version          Version number of this iteration of the application.
 
-  build.home           The directory into which the "prepare" and
-                       "compile" targets will generate their output.
-                       Defaults to "build".
-
   catalina.home        The directory in which you have installed
                        a binary distribution of Tomcat.  This will
                        be used by the "deploy" target.
@@ -114,10 +110,6 @@
                        "manager-script" role (so that he or she can execute
                        commands via the "/manager" web application)
 
-  manager.url          The URL of the "/manager" web application on the
-                       Tomcat installation to which we will deploy web
-                       applications and web services.
-
   manager.username     The login username of a user that is assigned the
                        "manager-script" role (so that he or she can execute
                        commands via the "/manager" web application)
@@ -127,11 +119,11 @@
   <property name="app.name"      value="myapp"/>
   <property name="app.path"      value="/${app.name}"/>
   <property name="app.version"   value="0.1-dev"/>
-  <property name="build.home"    value="${basedir}/build"/>
+  <property name="build.home"    value="./build"/>
   <property name="catalina.home" value="../../../.."/> <!-- UPDATE THIS! -->
   <property name="dist.home"     value="${basedir}/dist"/>
   <property name="docs.home"     value="${basedir}/docs"/>
-  <property name="manager.url"   value="http://localhost:8080/manager/text"/>
+  <property name="manager.url"   value="http://localhost:8080/manager/html"/>
   <property name="src.home"      value="${basedir}/src"/>
   <property name="web.home"      value="${basedir}/web"/>
 

@@ -123,7 +123,7 @@
   <property name="catalina.home" value="../../../.."/> <!-- UPDATE THIS! -->
   <property name="dist.home"     value="${basedir}/dist"/>
   <property name="docs.home"     value="${basedir}/docs"/>
-  <property name="manager.url"   value="http://localhost:8080/manager/html"/>
+  <property name="manager.url"   value="http://localhost:8080/manager/text"/>
   <property name="src.home"      value="${basedir}/src"/>
   <property name="web.home"      value="${basedir}/web"/>
 
@@ -362,10 +362,9 @@
        username="${manager.username}"
        password="${manager.password}"
            path="${app.path}"
-       localWar="file://${build.home}"/>
+       localWar="${build.home}"/>
 
   </target>
-
 
 <!-- ==================== Javadoc Target ================================== -->
 
@@ -500,5 +499,40 @@
 
   </target>
 
+<!-- ==================== Crear archivo war =================================== -->
+
+<!--
+
+  Aca va un comentario
+
+-->
+  <property name="warfile.destination" value="/var/lib/tomcat7/webapps" />
+  <property name="web-xml-file" value="web/WEB-INF/web.xml" />
+  <property name="classes-directory" value="web/bin" />
+  <property name="web-directory" value="web" />
+  <property name="builder" value="admin-UTNBA" />
+  <tstamp prefix="build-info">
+    <format property="current-date" pattern="dd-mm-yyyy" locale="en" />
+    <format property="current-time" pattern="hh:mm:ss" locale="en" />
+  </tstamp>
+
+  <target name="warfile" depends="compile">
+    <delete file="${warfile.destination}/${app.name}" />
+    <war warfile="${warfile.destination}/${app.name}.war" webxml="${web-xml-file}">
+<!--      <classes dir="${classes-directory}" /> -->
+      <fileset dir="${web-directory}">
+        <!-- Need to exclude it since webxml is an attribute of the war tag above -->
+        <exclude name="WEB-INF/web.xml" />
+      </fileset>
+      <manifest>
+        <attribute name="Built-By" value="${builder}" />
+	<attribute name="Built-On" value="${build-info.current-date}" />
+        <attribute name="Built-At" value="${build-info.current-time}" />
+      </manifest>
+    </war>
+  </target>
+
 
 </project>
+
+
